@@ -1,7 +1,7 @@
 import IdleTimer from "react-idle-timer";
 import { useRef, useState } from "react";
 import SessionModal from "./SessionModal";
-import { Button } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import { useNavigate } from 'react-router-dom';
@@ -66,17 +66,7 @@ function RBIdleTimer({ children }) {
 
   return (
     <div>
-
-    <IdleTimer
-      ref={timerRef}
-      timeout={IDLE_TIMEOUT}
-      onIdle={handleOnIdle}
-      onAction={handleOnAction}
-      onActive={handleOnActive}
-    //   debounce={500}
-    />
-      {show && (
-        <Modal show={show} dialogClassName="my-modal">
+        <Modal show={show}>
           <Modal.Header>
             <Modal.Title>You have been idle for too long.</Modal.Title>
           </Modal.Header>
@@ -87,7 +77,7 @@ function RBIdleTimer({ children }) {
               automatically.
             </h6>
 
-            <p className="text-muted">
+            <p>
               Time remaining : <Timer timeInSecs={FINAL_TIMEOUT} />
             </p>
           </Modal.Body>
@@ -100,13 +90,16 @@ function RBIdleTimer({ children }) {
             </Button>
           </Modal.Footer>
         </Modal>
-        // <SessionModal
-        //   show={show}
-        //   handleStayConnected={handleStayConnected}
-        //   handleLogout={handleLogout}
-        //   timeout={FINAL_TIMEOUT}
-        // />
-      )}
+
+        <IdleTimer
+      ref={timerRef}
+      timeout={IDLE_TIMEOUT}
+      onIdle={handleOnIdle}
+      onAction={handleOnAction}
+      onActive={handleOnActive}
+        //   debounce={500}
+      />
+      
 
       </div>
 
