@@ -12,7 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
-            {/* <Suspense fallback={<div>Loading...</div>}> */}
+            <Suspense fallback={<div>Loading...</div>}>
                 {!location.includes('/login') && <IdleTimerContainer />}
 
                 <Routes>
@@ -20,7 +20,7 @@ function App() {
                         path="/login"
                         element={<Login />}
                     />
-                            <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                 </Routes>
                     {/* <Routes>
                         <Route > */}
@@ -45,7 +45,7 @@ function App() {
                             <Route path="/expenses" element={<Expenses />} /> */}
                         {/* </Route>
                     </Routes> */}
-            {/* </Suspense> */}
+            </Suspense>
         </BrowserRouter>
     // <>
     // {!location.includes('/login') && <IdleTimerContainer />}

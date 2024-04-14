@@ -1,7 +1,9 @@
 import IdleTimer from "react-idle-timer";
 import { useRef, useState } from "react";
 import SessionModal from "./SessionModal";
-import { Modal, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal';
+
 import { useNavigate } from 'react-router-dom';
 
 import Timer from "./Timer";
@@ -22,10 +24,14 @@ function RBIdleTimer({ children }) {
   const timerRef = useRef();
 
   const handleLogout = () => {
-    clearTimeout(timeoutRef.current);
-    handleClose();
-    navigate('/login');
-    console.log("logout");
+    if (!location.includes("/login")) {
+        clearTimeout(timeoutRef.current);
+        handleClose();
+        navigate('/login');
+        console.log("logout");
+    }
+    // navigate('/login');
+
   };
 
   const handleStayConnected = () => {
@@ -42,7 +48,6 @@ function RBIdleTimer({ children }) {
         handleShow();
         timeoutRef.current = setTimeout(handleLogout, FINAL_TIMEOUT * 1000);
         // console.log("user is idle", event);
-        navigate('/login');
     }
 
 
@@ -60,16 +65,18 @@ function RBIdleTimer({ children }) {
   };
 
   return (
+    <div>
+
     <IdleTimer
       ref={timerRef}
       timeout={IDLE_TIMEOUT}
       onIdle={handleOnIdle}
       onAction={handleOnAction}
       onActive={handleOnActive}
-      debounce={500}
-    >
+    //   debounce={500}
+    />
       {show && (
-        <Modal animation={false} show={show}>
+        <Modal show={show} dialogClassName="my-modal">
           <Modal.Header>
             <Modal.Title>You have been idle for too long.</Modal.Title>
           </Modal.Header>
@@ -101,8 +108,8 @@ function RBIdleTimer({ children }) {
         // />
       )}
 
-      {children}
-    </IdleTimer>
+      </div>
+
   );
 }
 
